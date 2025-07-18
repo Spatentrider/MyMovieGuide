@@ -25,7 +25,40 @@ public class Main {
 
                 switch (scelta) {
                     case 1:
-                       
+                    System.out.print("Titolo: ");
+                    String titolo = scanner.nextLine();
+
+                    System.out.print("Genere: ");
+                    String genere = scanner.nextLine();
+
+                    System.out.print("Recensione: ");
+                    String recensione = scanner.nextLine();
+
+                    System.out.print("Valutazione (1-10): ");
+                    int valutazione = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (valutazione < 1 || valutazione > 10) {
+                        System.out.println("Valutazione non valida. Inserisci un numero da 1 a 10.");
+                        break;
+                    }
+
+                    String sqlInsert = "INSERT INTO film (titolo, genere, recensione, valutazione) VALUES (?, ?, ?, ?)";
+
+                    try (PreparedStatement stmt = conn.prepareStatement(sqlInsert)) {
+                        stmt.setString(1, titolo);
+                        stmt.setString(2, genere);
+                        stmt.setString(3, recensione);
+                        stmt.setInt(4, valutazione);
+
+                        stmt.executeUpdate();
+                        System.out.println("Film inserito con successo.");
+                    } catch (SQLException e) {
+                        System.out.println("Errore nell'inserimento del film:");
+                        e.printStackTrace();
+                    }
+                    break;
+ 
 
                     case 2:
                         String sqlSelect = "SELECT * FROM film";
@@ -60,4 +93,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-}
+    }
