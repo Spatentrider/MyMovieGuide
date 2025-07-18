@@ -74,7 +74,24 @@ public class Main {
                         break;
 
                     case 3:
-                        
+                        System.out.print("Titolo del film da aggiornare: ");
+                        String titoloUpdate = scanner.nextLine();
+                        System.out.print("Nuova valutazione (1-10): ");
+                        int nuovaValutazione = scanner.nextInt();
+                        scanner.nextLine();
+
+                        String sqlUpdate = "UPDATE film SET valutazione = ? WHERE titolo = ?";
+                        try (PreparedStatement stmt = conn.prepareStatement(sqlUpdate)) {
+                            stmt.setInt(1, nuovaValutazione);
+                            stmt.setString(2, titoloUpdate);
+                            int rows = stmt.executeUpdate();
+                        if (rows > 0) {
+                            System.out.println("Valutazione aggiornata.");
+                        } else {
+                            System.out.println(" Film non trovato.");
+                        }                        
+                    } 
+                    break;
 
                     case 4:
                         
