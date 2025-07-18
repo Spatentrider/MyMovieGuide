@@ -30,5 +30,5 @@ public class Giuliana {
         } catch (SQLException e) { // cattura errori
             e.printStackTrace();
         } // chiudo try-catch
-    
+    }
 }
